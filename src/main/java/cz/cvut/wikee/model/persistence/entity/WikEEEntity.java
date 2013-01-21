@@ -3,6 +3,7 @@ package cz.cvut.wikee.model.persistence.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -34,11 +35,6 @@ public abstract class WikeeEntity implements Serializable {
     private List<WikeeEntity> partOf;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable (
-            name="wikeeentity_wikeeentity",
-            joinColumns = {@JoinColumn(name="contains_id")},
-            inverseJoinColumns = {@JoinColumn(name="partOf_id")}
-    )
     private List<WikeeEntity> contains;
 
     public WikeeEntity(){
@@ -106,8 +102,7 @@ public abstract class WikeeEntity implements Serializable {
     }
 
     public List<WikeeEntity> getPartOf() {
-        return partOf;
-        //return Collections.unmodifiableList(partOf);
+        return Collections.unmodifiableList(partOf);
     }
 
     protected void setPartOf(List<WikeeEntity> partOf) {
@@ -115,30 +110,46 @@ public abstract class WikeeEntity implements Serializable {
     }
 
     public List<WikeeEntity> getContains() {
-        return contains;
-        //return Collections.unmodifiableList(contains);
+        return Collections.unmodifiableList(contains);
     }
 
     protected void setContains(List<WikeeEntity> contains) {
         this.contains = contains;
     }
 
-    // Entities are equal if and only if id = id
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        WikeeEntity that = (WikeeEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-
-        return true;
+    public void addPartOf(WikeeEntity entity){
+        if(!partOf.contains(entity)){
+            partOf.add(entity);
+        }
+        if(!entity.contains.contains(this)){
+            entity.contains.add(this);
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void removePartOf(WikeeEntity entity){
+        if(!partOf.contains(entity)){
+            partOf.remove(entity);
+        }
+        if(!entity.contains.contains(this)){
+            entity.contains.remove(this);
+        }
+    }
+
+    public void addContains(WikeeEntity entity){
+        if(!contains.contains(entity)){
+            contains.add(entity);
+        }
+        if(!entity.partOf.contains(this)){
+            entity.partOf.add(this);
+        }
+    }
+
+    public void removeContains(WikeeEntity entity){
+        if(!contains.contains(entity)){
+            contains.remove(entity);
+        }
+        if(!entity.partOf.contains(this)){
+            entity.partOf.remove(this);
+        }
     }
 }

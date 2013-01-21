@@ -74,7 +74,7 @@ public class Initialization {
         Ticket tCars = new Ticket(u, "Auta", "Rubrika o autech");
         Ticket tComputers = new Ticket(u, "Počítače", "Rubrika o počítačích");
         Ticket tNotebooks = new Ticket(u, "Notebooky", "Rubrika o noteboocích");
-        tComputers.getContains().add(tNotebooks);
+        tComputers.addContains(tNotebooks);
 
         ticketService.persist(tCars);
         ticketService.persist(tComputers);
@@ -82,10 +82,10 @@ public class Initialization {
 
         logger.debug("Inserting articles...");
         Article article = new Article(u, "Nová Octávie", "Lorem ipsum ...");
-        article.getPartOf().add(tCars);
+        article.addPartOf(tCars);
 
         Article article2 = new Article(u, "Strašná autonehoda", "Lorem ipsum ...");
-        article2.getPartOf().add(tCars);
+        article2.addPartOf(tCars);
 
         articleService.persist(article);
         articleService.persist(article2);
