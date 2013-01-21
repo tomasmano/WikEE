@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Beziks
+  Date: 19.1.13
+  Time: 22:40
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+        >
+
+<h:head>
+    <title>WikEE - Sample page</title>
+</h:head>
+<h:body>
+    <h1>WikEE - Sample page</h1>
+
+    <h2>Seznam uživatelů</h2>
+
+    <h:form>
+        <h:outputLabel value="Napiš uživatelské jméno" for="username"/>
+        <h:inputText id="username" required="true" value="#{usersTest.username}"/>
+        <br/>
+        <br/>
+        <h:commandButton value="Select" action="#{usersTest.perform}"/>
+    </h:form>
+    <h:panelGroup rendered="#{usersTest.user != null}">
+        <br/>
+        Uživatel: #{usersTest.user.id} | #{usersTest.user.firstname} #{usersTest.user.lastname} | #{usersTest.user.username} | #{usersTest.user.password} <br />
+              #{usersTest.user.created} | #{usersTest.user.updated}  <br />
+              #{usersTest.user.role.name}
+    </h:panelGroup>
+
+    <br/>
+    <br/>
+    <h:dataTable value="#{usersTest.allUsers}" var="u">
+        <h:column>
+            <f:facet name="header">Jméno</f:facet>
+            #{u.firstname} #{u.lastname}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Uživatelské jméno</f:facet>
+            #{u.username}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Heslo</f:facet>
+            #{u.password}
+        </h:column>
+    </h:dataTable>
+
+    <h2>Ticket Auta</h2>
+    <h:dataTable value="#{ticketTest.ticketArticles}" var="a">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{a.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Content</f:facet>
+            #{a.content}
+        </h:column>
+    </h:dataTable>
+
+    <h2>Ticket Notebooky</h2>
+    #{ticketService.getTicket("Notebooky").name} &lt;-
+    #{ticketService.getPartOfTickets(ticketService.getTicket("Notebooky"))[0].name}
+    <br />
+    #{ticketService.getTicket("Počítače").name} ->
+    #{ticketService.getContainsTickets(ticketService.getTicket("Počítače"))[0].name}
+
+    <h2>Settings</h2>
+    DB_INIT: #{settingsService.get("DB_INIT")}
+</h:body>
+
+</html>
