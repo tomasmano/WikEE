@@ -21,13 +21,13 @@ import java.util.List;
 public abstract class WikeeEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    public Integer id;
+    protected Integer id;
 
-    public Date created;
-    public Date updated;
+    private Date created;
+    private Date updated;
 
     @ManyToOne
-    public User creator;
+    protected User creator;
 
     @ManyToMany(
             mappedBy = "contains",
