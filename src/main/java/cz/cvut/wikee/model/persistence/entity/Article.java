@@ -1,6 +1,7 @@
 package cz.cvut.wikee.model.persistence.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import java.util.List;
 
 /**
@@ -36,6 +37,8 @@ public class Article extends WikeeEntity {
     }
 
     private String name;
+
+    @Lob
     private String content;
 
     public String getName() {
