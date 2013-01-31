@@ -61,7 +61,7 @@ public class Initialization {
         roleService.saveOrUpdate(redactor);
 
         Role regular = new Role("REGULAR");
-        roleService.saveOrUpdate(redactor);
+        roleService.saveOrUpdate(regular);
 
         logger.debug("Inserting users...");
         User u = new User(null, "Václav", "Čokrt", "admin", "admin", admin);
@@ -69,6 +69,9 @@ public class Initialization {
 
         User uu = new User(null, "Evžen", "Dlouhý", "evzen", "evzen", redactor);
         em.persist(uu);
+
+        User uuu = new User(null, "Karel", "Pohoda", "karel", "karel", regular);
+        em.persist(uuu);
 
         logger.debug("Inserting tickets...");
         Ticket tCars = new Ticket(u, "Auta", "Rubrika o autech");
