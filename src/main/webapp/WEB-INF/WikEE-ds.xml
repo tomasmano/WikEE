@@ -5,18 +5,21 @@
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
+    
+    <!-- //////////// vid wiki projektu //////////// -->
+
    <!-- The datasource is bound into JNDI at this location. We reference 
       this in META-INF/persistence.xml -->
-   <datasource jndi-name="java:jboss/datasources/WikEEDS"
+<!--   <datasource jndi-name="java:jboss/datasources/WikEEDS"
       pool-name="{artifactId}" enabled="true"
       use-java-context="true">
-      <!--<connection-url>jdbc:mysql://localhost:3306/wikee</connection-url>-->
+      <connection-url>jdbc:mysql://localhost:3306/wikee</connection-url>
       <connection-url>jdbc:postgresql://localhost:5432/wikiee</connection-url>
       <driver>postgresql-9.1-901.jdbc4.jar</driver>
       <security>
          <user-name>dev</user-name>
          <password>dev</password>
       </security>
-   </datasource>
+   </datasource>-->
 </datasources>
  

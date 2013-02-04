@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Wiki EE</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+        <meta name="author" content="Tomas Mano"/>
+        <!-- Bootstrap -->
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap-responsive.css" />
+        <!--<link href="css/bootstrap.css" rel="stylesheet" media="screen">-->
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                /*padding-bottom: 40px;*/
+            }
+            ::selection {
+                background: #EE6AA7; /* Safari */
+                color: white;
+            }
+            ::-moz-selection {
+                background: #EE6AA7; /* Firefox */
+                color: white;
+            }
+            .sidebar-nav {
+                padding: 9px 0;
+            }
+            #menu-tabs{
+                background-color: #f7f7f7;
+            }
+            #app-cont{
+                width: 80%;
+            }
+            #app-cont .span9{
+                min-height: 800px;
+            }
+            .examples{
+                color: #bbbbbb;
+                font-size: 12px;
+                margin-top: -20px;
+            }
+            footer{
+                font-size:80%;
+            }
+            .apps-tbl-tr-accent{
+                font-weight: bold;
+            }
+            .serv-tbl-tr-accent{
+                font-size: 14px;
+            }
+            .ui-growl{
+                top: 50px;
+                position: fixed;
+                left: 40%;
+            }
+            .upper-index{
+                font-size: 8px; position: relative; bottom: 9px; font-family: sans-serif; font-weight: normal;
+            }
+            #myModalCreateApp .modal-body {
+                max-height: 750px;
+            }
+            .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary{font-weight:normal;}
+            #loading {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                position: fixed;
+                display: none;
+                opacity: 0.7;
+                background-color: #fff;
+                z-index: 99;
+            }
+
+            #loading-image {
+                position: absolute;
+                top: 400px;
+                margin-left: 45%;
+                z-index: 100;
+            }
+        </style>
+        <link href="../resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet"/>
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </h:head>
+    <h:body>
+
+        <div id="loading">
+            <p:graphicImage id="loading-image" name="gifs/loading.gif" library="default" alt="Loading..."/>
+        </div>
+
+
+        <!-- Top navigation bar-->
+        <ui:include src="top-navbar.xhtml"/>
+
+        <div id="app-cont" class="container">
+            <div class="row-fluid">
+
+                <!-- Side menu for project listing page-->
+                <div class="span3">
+                    <ul id="menu-tabs" class="nav nav-tabs nav-stacked">
+                        <li><a href="project-summary.xhtml"><i class="icon-home"></i> Project Summary</a></li>
+                        <li><a href="apps.xhtml"><i class="icon-certificate"></i> Apps </a></li>
+                        <li><a href="team.xhtml"><i class="icon-user"></i> Team</a></li>
+                    </ul>
+                </div>
+
+                <ui:insert name="content">[Basic Content]</ui:insert>
+
+            </div>
+
+            <hr/>
+
+            <!--<img src="http://static.simpledesktops.com/uploads/desktops/2011/11/01/rainstars.png" alt="Image Description" style="opacity: 0.2; position: absolute; bottom: 0px; left: 0px; width:100%;height: auto; z-index: -1"/>-->
+
+            <footer>
+                <p class="pagination-centered">&copy; CTU Prague 2012</p>
+            </footer>
+
+        </div>
+
+        <script language="javascript" type="text/javascript">
+            function showLoading(data) {
+                showIndicatorRegion(data, "loading");
+            }
+
+            function showIndicatorRegion(data, regionId) {
+                if (data.status == "begin") {
+                    document.getElementById(regionId).style.display = "block";
+                } else if (data.status == "success") {
+                    document.getElementById(regionId).style.display = "none";
+                }
+            }
+        </script>
+
+        <!--Disabled because of conflict with primefaces-->
+        <h:outputScript library="default" name="js/jquery-1.8.3.min.js" />
+        <h:outputScript library="default" name="js/holder.js" />
+        <h:outputScript library="bootstrap" name="js/bootstrap.js" />
+    </h:body>
+</html>
