@@ -6,7 +6,7 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
    <!-- The datasource is bound into JNDI at this location. We reference 
-      this in META-INF/test-persistence.xml -->
+      this in META-INF/persistence.xml -->
    <datasource jndi-name="java:jboss/datasources/WikEETestDS"
       pool-name="WikEE-test" enabled="true"
       use-java-context="true">

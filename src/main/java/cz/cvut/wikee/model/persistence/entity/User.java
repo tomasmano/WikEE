@@ -1,6 +1,7 @@
 package cz.cvut.wikee.model.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,7 +110,7 @@ public class User extends WikeeEntity {
     @Override
     @Deprecated
     public List<WikeeEntity> getContains() {
-        throw new IllegalStateException("Method not supported for this entity");
+        return new ArrayList<WikeeEntity>();
     }
 
     /**
@@ -118,6 +119,6 @@ public class User extends WikeeEntity {
     @Override
     @Deprecated
     public List<WikeeEntity> getPartOf() {
-        throw new IllegalStateException("Method not supported for this entity");
+        return new ArrayList<WikeeEntity>();
     }
 }

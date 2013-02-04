@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import java.util.List;
 
 /**
  * Created by
@@ -36,10 +35,6 @@ public class TicketService extends AbstractDAO<Ticket> {
     }
 
     //---------------------------------------------------------
-
-    public List<Ticket> getAllUsers(){
-        return getAll();
-    }
 
     public Ticket getTicket(String name){
         return getWhereEquals(Ticket_.name, name);

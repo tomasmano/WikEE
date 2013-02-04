@@ -80,7 +80,7 @@ public class Role extends WikeeEntity {
     @Deprecated
     @Override
     public List<WikeeEntity> getPartOf() {
-        throw new IllegalStateException("Method not supported for this entity");
+        return new ArrayList<WikeeEntity>();
     }
 
     /**
@@ -89,6 +89,6 @@ public class Role extends WikeeEntity {
     @Deprecated
     @Override
     public List<WikeeEntity> getContains() {
-        throw new IllegalStateException("Method not supported for this entity");
+        return new ArrayList<WikeeEntity>();
     }
 }

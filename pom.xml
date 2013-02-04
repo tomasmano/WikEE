@@ -24,7 +24,7 @@
         to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
         maven repository. -->
         <!-- <jboss.bom.version>1.0.0.M12-redhat-1</jboss.bom.version>> -->
-        <mysql.version></mysql.version>
+        <mysql.version>5.1.22</mysql.version>
         <org.primefaces.version>3.4.1</org.primefaces.version>
     </properties>
 
@@ -207,7 +207,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.22</version>
+            <version>${mysql.version}</version>
         </dependency>
 
         <dependency>
@@ -285,6 +285,9 @@
             in a remote JBoss AS instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>

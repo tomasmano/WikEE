@@ -4,12 +4,12 @@ import cz.cvut.wikee.model.persistence.AbstractDAO;
 import cz.cvut.wikee.model.persistence.Storage;
 import cz.cvut.wikee.model.persistence.entity.Role;
 import cz.cvut.wikee.model.persistence.entity.Role_;
+import cz.cvut.wikee.model.persistence.entity.User;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import java.util.List;
 
 /**
  * Created by
@@ -34,16 +34,18 @@ public class RoleService extends AbstractDAO<Role> {
     protected EntityManager getEm() {
         return em;
     }
-
     //---------------------------------------------------------
-
-    public List<Role> getAllUsers(){
-        return getAll();
-    }
 
     public Role getRole(String name){
         return getWhereEquals(Role_.name, name);
     }
 
+    @Override
+    public void remove(Role entity) {
+        for(User u : entity.getMembers()){
+            u.setRole(null);
+        }
 
+        entity.getMembers().clear();
+    }
 }

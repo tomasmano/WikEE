@@ -36,7 +36,7 @@ public class UsersTestBean implements Serializable {
     private UserService userService;
 
     public List<User> getAllUsers(){
-        return userService.getAllUsers();
+        return userService.getAll();
     }
 
     public User getUser() {

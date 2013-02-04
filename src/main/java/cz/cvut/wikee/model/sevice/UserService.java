@@ -4,12 +4,12 @@ import cz.cvut.wikee.model.persistence.AbstractDAO;
 import cz.cvut.wikee.model.persistence.Storage;
 import cz.cvut.wikee.model.persistence.entity.User;
 import cz.cvut.wikee.model.persistence.entity.User_;
+import cz.cvut.wikee.model.persistence.entity.WikeeEntity;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import java.util.List;
 
 /**
  * Created by
@@ -30,16 +30,25 @@ public class UserService extends AbstractDAO<User> {
         super(User.class);
     }
 
-    public List<User> getAllUsers(){
-        return getAll();
+    @Override
+    protected EntityManager getEm() {
+        return em;
     }
 
+    //--------------------------
     public User getUser(String username){
         return getWhereEquals(User_.username, username);
     }
 
     @Override
-    protected EntityManager getEm() {
-        return em;
+    public void remove(User user) {
+        for(WikeeEntity e : user.getCreatedItems()){
+            e.setCreator(null);
+        }
+
+        user.getRole().getMembers().remove(user);
+        user.setRole(null);
+
+        super.remove(user);
     }
 }

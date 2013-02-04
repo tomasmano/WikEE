@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import java.util.List;
 
 /**
  * Created by
@@ -37,11 +36,8 @@ public class ArticleService extends AbstractDAO<Article> {
 
     //---------------------------------------------------------
 
-    public List<Article> getAllUsers(){
-        return getAll();
-    }
 
-    public Article getRole(String name){
+    public Article getArticle(String name){
        return getWhereEquals(Article_.name, name);
     }
 

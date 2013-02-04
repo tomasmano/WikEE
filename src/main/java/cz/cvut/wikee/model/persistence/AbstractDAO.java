@@ -38,13 +38,17 @@ public abstract class AbstractDAO<T extends WikeeEntity> implements Serializable
      * @return all entities of defined class
      */
     public List<T> getAll() {
-        CriteriaBuilder builder = getEm().getCriteriaBuilder();
+        return getAll(getEm(), clazz);
+    }
 
-        CriteriaQuery<T> criteria = builder.createQuery(clazz);
-        Root<T> root = criteria.from(clazz);
+    public static <C>  List<C> getAll(EntityManager em, Class<C> clazz){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
+        CriteriaQuery<C> criteria = builder.createQuery(clazz);
+        Root<C> root = criteria.from(clazz);
         criteria.select(root);
 
-        TypedQuery<T> result = getEm().createQuery(criteria);
+        TypedQuery<C> result = em.createQuery(criteria);
         return result.getResultList();
     }
 
@@ -89,6 +93,18 @@ public abstract class AbstractDAO<T extends WikeeEntity> implements Serializable
 
     public T merge(T entity){
         return getEm().merge(entity);
+    }
+
+    public void remove(T entity){
+        for(WikeeEntity e : entity.getContains()){
+            entity.removeContains(e);
+        }
+
+        for(WikeeEntity e : entity.getPartOf()){
+            entity.removePartOf(e);
+        }
+
+        getEm().remove(entity);
     }
 
     /**
