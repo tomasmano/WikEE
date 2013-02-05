@@ -32,9 +32,9 @@
                                     <tr>
                                         <td>#{ar.id}</td>
                                         <td>
-                                            <h:commandLink id="readRequestButton" value="#{ar.name}" type="button" styleClass="btn btn-link" style="height: 6px; margin-top: -3px;" actionListener="#{userBean.setSelectedArticle(ar)}">
+                                            <h:commandLink id="readRequestButton" value="#{ar.name}" type="button" styleClass="btn btn-link" style="height: 6px; margin-top: -3px;">
                                                 <i class="icon-search"></i>
-                                                <p:ajax event="click" listener="#{userBean.setSelectedArticle(ar)}" 
+                                                <p:ajax event="click" listener="#{articleBean.setSelectedArticle(ar)}" 
                                                         update=":readArticleDlg" oncomplete="readArticleDlgWidget.show()" 
                                                         global="true" immediate="true"
                                                         />  
@@ -47,9 +47,9 @@
                                             <i class="icon-time"/> </td>
                                         <td><span class="label label-info">#{ar.creator.firstname} #{ar.creator.lastname}</span></td>
                                         <td>
-                                            <ui:repeat var="tick" value="#{articleBean.getArticleTickets(ar)}">
-                                                <span class="label label-warning">#{tick.name}</span>
-                                            </ui:repeat>
+<!--                                            <ui:repeat var="tick" value="#!{articleBean.getArticleTickets(ar)}">
+                                                <span class="label label-warning">#!{tick.name}</span>
+                                            </ui:repeat>-->
                                         </td>
                                         <td>
                                             <h:commandLink value="&#215;" styleClass="close" rendered="#{userBean.role eq 'ADMIN'}" action="#{articleBean.deleteSelected(ar)}"><f:ajax render="@form"/></h:commandLink>
