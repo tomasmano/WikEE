@@ -16,8 +16,14 @@
                     <a class="brand" href="home.jsf">Wiki EE <span class="upper-index">beta</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a>New Article</a></li>
-                            <li class="active"><a>New Category</a></li>
+                            <li class="active"><p:commandLink id="newArticleLink" 
+                                                                value="New Article" 
+                                                                onclick="createArticleDlg.show()" rendered="#{userBean.role eq 'REDACTOR' or userBean.role eq 'ADMIN'}"
+                                                                /></li>
+                            <li class="active"><p:commandLink id="newTicketLink" 
+                                                                value="New Ticket" 
+                                                                onclick="createTicketDlg.show()" rendered="#{userBean.role eq 'ADMIN'}"
+                                                                /></li>
                         </ul>
                         <ul class="nav pull-right">
                             <li><a href="#feedbackModal" role="button" data-toggle="modal"><span class="label label-important">Missin' Somethin'?</span></a></li>
@@ -41,5 +47,5 @@
             </div>
         </div>
     </h:form>
-    
+
 </ui:composition>

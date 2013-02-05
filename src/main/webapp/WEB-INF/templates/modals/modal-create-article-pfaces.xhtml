@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"  
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- /////////////////////////////////////////////////////////-->
+    <!-- Primefaces Modal Dialog for creating new article -->
+    <!-- /////////////////////////////////////////////////////////-->
+
+    <!--Positioning of growl messeage is defined as '.ui-growl -->
+    <p:growl id="growl" showDetail="true" life="4000" showSummary="false"/>  
+
+    <p:dialog id="createDlg" header="Create new Article" widgetVar="createArticleDlg" modal="true">  
+        <h:form>  
+
+            <h4>Article Name: </h4>
+            <p>
+                <p:inputText value="#{createArticleBean.name}" style="width: 320px" required="true" label="article name"></p:inputText>
+            </p>
+
+            <h4>Select Category: </h4>
+            <p>
+                <!--                <p:selectOneMenu value="#!{createArticleBean.ticket}">
+                                    <f:converter converterId="ticketConverter" />
+                                    <f:selectItems var="tick" itemLabel="#!{tick.name}" itemValue="#!{tick.id}" value="#!{createArticleBean.tickets}"/>  
+                                </p:selectOneMenu>-->
+            </p>
+
+            <h4>Article Content: </h4>  
+            <p:inputTextarea rows="5" cols="50" counter="counter" maxlength="255"       
+                             counterTemplate="{0} characters remaining." autoResize="false" value="#{createArticleBean.content}" style="width: 320px" required="true" label="article context"></p:inputTextarea>
+
+            <p>
+                <small> <h:outputText id="counter" />  </small>
+            </p>
+
+            <p:commandButton value="Save" action="#{createArticleBean.saveArticle()}" onclick="showLoading();" oncomplete="handleCreateDialog(xhr, status, args)" update=":growl :articlesTable" styleClass="ui-priority-primary" style="margin-right: 5px"/>
+            <p:commandButton value="Cancel" immediate="true" onclick="createArticleDlg.hide();" styleClass="btn" style="margin: -2px"/>
+
+        </h:form>  
+    </p:dialog>  
+
+    <script type="text/javascript">
+                function handleCreateDialog(xhr, status, args) {
+                    if (args.validationFailed) {
+                        jQuery('#createDlg').effect("shake", { times: 3}, 100);
+                    } else {
+                        createArticleDlg.hide();
+                    }
+                }
+    </script>  
+
+</ui:composition>

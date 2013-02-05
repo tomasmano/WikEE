@@ -152,4 +152,5 @@ public abstract class WikeeEntity implements Serializable {
             entity.partOf.remove(this);
         }
     }
+
 }

@@ -83,7 +83,7 @@ public abstract class AbstractDAO<T extends WikeeEntity> implements Serializable
      * @param id
      * @return entity or null
      */
-    protected T get(Integer id){
+    public T get(Integer id){
         return getEm().find(clazz, id);
     }
 

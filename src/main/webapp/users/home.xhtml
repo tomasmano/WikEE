@@ -16,49 +16,53 @@
 
                 <div id="container" class="centered">
 
-                    <h:form>
+                    <h:panelGroup id="articlesTable" layout="block">
+                        
+                        <h:form>
 
-                        <table class="table table-striped table-hover">
-                            <tbody>
-                                <tr>
-                                    <td class="apps-tbl-tr-accent">Id:</td>
-                                    <td class="apps-tbl-tr-accent">Name:</td>
-                                    <td class="apps-tbl-tr-accent">Posted:</td>
-                                    <td class="apps-tbl-tr-accent">Created by:</td>
-                                    <td class="apps-tbl-tr-accent">Category:</td>
-                                    <td class="apps-tbl-tr-accent"></td>
-                                </tr>
-                                <ui:repeat var="ar" value="#{articleBean.getAll()}">
+                            <table class="table table-striped table-hover">
+                                <tbody>
                                     <tr>
-                                        <td>#{ar.id}</td>
-                                        <td>
-                                            <h:commandLink id="readRequestButton" value="#{ar.name}" type="button" styleClass="btn btn-link" style="height: 6px; margin-top: -3px;">
-                                                <i class="icon-search"></i>
-                                                <p:ajax event="click" listener="#{articleBean.setSelectedArticle(ar)}" 
-                                                        update=":readArticleDlg" oncomplete="readArticleDlgWidget.show()" 
-                                                        global="true" immediate="true"
-                                                        />  
-                                            </h:commandLink>
-                                        </td>
-                                        <td>
-                                            <h:outputText value="#{ar.created}" style="margin-right: 4px;">
-                                                <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-                                            </h:outputText>
-                                            <i class="icon-time"/> </td>
-                                        <td><span class="label label-info">#{ar.creator.firstname} #{ar.creator.lastname}</span></td>
-                                        <td>
-<!--                                            <ui:repeat var="tick" value="#!{articleBean.getArticleTickets(ar)}">
-                                                <span class="label label-warning">#!{tick.name}</span>
-                                            </ui:repeat>-->
-                                        </td>
-                                        <td>
-                                            <h:commandLink value="&#215;" styleClass="close" rendered="#{userBean.role eq 'ADMIN'}" action="#{articleBean.deleteSelected(ar)}"><f:ajax render="@form"/></h:commandLink>
-                                        </td>
+                                        <td class="apps-tbl-tr-accent">Id:</td>
+                                        <td class="apps-tbl-tr-accent">Name:</td>
+                                        <td class="apps-tbl-tr-accent">Posted:</td>
+                                        <td class="apps-tbl-tr-accent">Created by:</td>
+                                        <td class="apps-tbl-tr-accent">Category:</td>
+                                        <td class="apps-tbl-tr-accent"></td>
                                     </tr>
-                                </ui:repeat>
-                            </tbody>
-                        </table>
-                    </h:form>
+                                    <ui:repeat var="ar" value="#{articleBean.getAll()}">
+                                        <tr>
+                                            <td>#{ar.id}</td>
+                                            <td>
+                                                <h:commandLink id="readRequestButton" value="#{ar.name}" type="button" styleClass="btn btn-link" style="height: 6px; margin-top: -3px;">
+                                                    <i class="icon-search"></i>
+                                                    <p:ajax event="click" listener="#{userBean.setSelectedArticle(ar)}" 
+                                                            update=":readArticleDlg" oncomplete="readArticleDlgWidget.show()" 
+                                                            global="true" immediate="true"
+                                                            />  
+                                                </h:commandLink>
+                                            </td>
+                                            <td>
+                                                <h:outputText value="#{ar.created}" style="margin-right: 4px;">
+                                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                                                </h:outputText>
+                                                <i class="icon-time"/> </td>
+                                            <td><span class="label label-info">#{ar.creator.firstname} #{ar.creator.lastname}</span></td>
+                                            <td>
+                                                <ui:repeat var="tick" value="#{articleBean.getArticleTickets(ar)}">
+                                                    <span class="label label-warning">#{tick.name}</span>
+                                                </ui:repeat>
+                                            </td>
+                                            <td>
+                                                <h:commandLink value="&#215;" styleClass="close" rendered="#{userBean.role eq 'ADMIN'}" action="#{articleBean.deleteSelected(ar)}"><f:ajax render="@form"/></h:commandLink>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
+                        </h:form>
+                        
+                    </h:panelGroup>
 
                 </div>
 
@@ -66,8 +70,10 @@
 
         </div>
 
-        <!-- Primefaces Modal Dialog for reading article content -->
+        <!-- Primefaces Modals Dialogs for reading and creating articles and creating tickets -->
         <ui:include src="/WEB-INF/templates/modals/modal-read-article-pfaces.xhtml"/>
+        <ui:include src="/WEB-INF/templates/modals/modal-create-article-pfaces.xhtml"/>
+        <ui:include src="/WEB-INF/templates/modals/modal-create-ticket-pfaces.xhtml"/>
 
     </ui:define>
 

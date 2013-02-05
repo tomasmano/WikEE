@@ -40,7 +40,11 @@ public class AuthenticatedUserBean  implements Serializable {
      */
     public String doLogout() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "home.jsf?faces-redirect=true";
+        ExternalContext context = FacesContext.getCurrentInstance()
+                .getExternalContext();
+        context.redirect(context.getRequestContextPath());
+        FacesContext.getCurrentInstance().responseComplete();
+        return null;
     }
     
     //////////  Getters / Setters  //////////
@@ -72,7 +76,7 @@ public class AuthenticatedUserBean  implements Serializable {
     }
 
     public void setSelectedArticle(Article selectedArticle) {
-        logger.info("Setting article: "+selectedArticle);
+        logger.debug("Setting article: "+selectedArticle);
         this.selectedArticle = selectedArticle;
     }
     

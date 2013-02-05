@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"  
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- /////////////////////////////////////////////////////////-->
+    <!-- Primefaces Modal Dialog for creating new article -->
+    <!-- /////////////////////////////////////////////////////////-->
+
+    <p:dialog id="createTickDlg" header="Create new Ticket" widgetVar="createTicketDlg" modal="true">  
+        <h:form>  
+
+            <h4>Ticket Name: </h4>
+            <p>
+                <p:inputText value="#{createTicketBean.ticketName}" style="width: 320px" required="true" label="ticket name"></p:inputText>
+            </p>
+
+            <h4>Ticket Info: </h4>  
+            <p:inputTextarea rows="5" cols="50" counter="counter" maxlength="255"       
+                             counterTemplate="{0} characters remaining." autoResize="false" value="#{createTicketBean.info}" style="width: 320px" required="true" label="ticket info"></p:inputTextarea>
+
+            <p>
+                <small> <h:outputText id="counter" />  </small>
+            </p>
+
+            <p:commandButton value="Save" action="#{createTicketBean.saveTicket()}" oncomplete="handleCreateTicketDialog(xhr, status, args)" update=":growl" styleClass="ui-priority-primary" style="margin-right: 5px">
+                <!--<f:ajax render=":articlesTable" onevent="showLoading"/>-->
+                <f:ajax render="@all" onevent="showLoading"/>
+            </p:commandButton>
+            <p:commandButton value="Cancel" immediate="true" onclick="createTicketDlg.hide();" styleClass="btn" style="margin: -2px"/>
+
+        </h:form>  
+    </p:dialog>  
+
+    <script type="text/javascript">
+                function handleCreateTicketDialog(xhr, status, args) {
+                    if (args.validationFailed) {
+                        jQuery('#createTickDlg').effect("shake", { times: 3}, 100);
+                    } else {
+                        createTicketDlg.hide();
+                    }
+                }
+    </script>  
+
+</ui:composition>
