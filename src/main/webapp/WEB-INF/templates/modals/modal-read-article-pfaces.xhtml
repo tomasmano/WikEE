@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"  
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- /////////////////////////////////////////////////////////-->
+    <!-- Primefaces Modal Dialog for reading article's content -->
+    <!-- /////////////////////////////////////////////////////////-->
+
+    <!--Positioning of growl messeage is defined as '.ui-growl' -->
+
+    <p:dialog id="readArticleDlg" header="#{userBean.selectedArticle.name}'s Content" widgetVar="readArticleDlgWidget" minimizable="true" modal="false" width="900" height="600" showEffect="scale" hideEffect="fade">  
+        
+        <p>
+           <!-- #!{userBean.selectedArticle.content} -->
+        </p>
+        <p>
+            WTFFFFFFFFF ?
+            #{userBean.selectedArticle}
+        </p>
+        
+    </p:dialog>    
+
+</ui:composition>

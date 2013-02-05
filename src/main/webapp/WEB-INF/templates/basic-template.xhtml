@@ -109,12 +109,12 @@
             <div class="row-fluid">
 
                 <!-- Side menu for project listing page-->
-                <div class="span3">
-                    <ul id="menu-tabs" class="nav nav-tabs nav-stacked">
-                        <li><a href="project-summary.xhtml"><i class="icon-home"></i> Project Summary</a></li>
-                        <li><a href="team.xhtml"><i class="icon-user"></i> Team</a></li>
-                    </ul>
-                </div>
+                <!--                <div class="span3">
+                                    <ul id="menu-tabs" class="nav nav-tabs nav-stacked">
+                                        <li><a href="project-summary.xhtml"><i class="icon-home"></i> Project Summary</a></li>
+                                        <li><a href="team.xhtml"><i class="icon-user"></i> Team</a></li>
+                                    </ul>
+                                </div>-->
 
                 <ui:insert name="content">[Basic Content]</ui:insert>
 
@@ -127,6 +127,10 @@
             <footer>
                 <p class="pagination-centered">&copy; CTU Prague 2012</p>
             </footer>
+
+            <!-- Modal -->
+            <ui:include src="/WEB-INF/templates/modals/modal-feedback.xhtml"/>
+
 
         </div>
 
@@ -145,7 +149,7 @@
         </script>
 
         <!--Disabled because of conflict with primefaces-->
-        <h:outputScript library="default" name="js/jquery-1.8.3.min.js" />
+        <!--<h:outputScript library="default" name="js/jquery-1.8.3.min.js" />-->
         <h:outputScript library="default" name="js/holder.js" />
         <h:outputScript library="bootstrap" name="js/bootstrap.js" />
     </h:body>

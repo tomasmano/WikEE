@@ -38,7 +38,6 @@ public class Article extends WikeeEntity {
 
     private String name;
 
-    @Lob
     private String content;
 
     public String getName() {
