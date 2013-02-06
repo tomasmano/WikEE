@@ -2,6 +2,8 @@ package cz.cvut.wikee.model.sevice;
 
 import cz.cvut.wikee.arquillian.ArchiveFactory;
 import cz.cvut.wikee.arquillian.TestUtils;
+import cz.cvut.wikee.model.persistence.entity.Article;
+import cz.cvut.wikee.model.persistence.entity.Ticket;
 import junit.framework.Assert;
 import org.apache.log4j.Logger;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -13,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by
@@ -54,5 +57,32 @@ public class TicketServiceTest {
     @Test
     public void test() {
         Assert.assertEquals(3, ticketService.getAll().size());
+    }
+
+    /**
+     * Test
+     */
+    @Test
+    public void testSubTickets() {
+        Ticket n = ticketService.getTicket("Notebooky");
+        Ticket p = ticketService.getTicket("Počítače");
+        Assert.assertEquals(n.getId(), ticketService.loadLazyCollections(p).getContains().get(0).getId());
+        Assert.assertEquals(p.getId(), ticketService.loadLazyCollections(n).getPartOf().get(0).getId());
+
+        ticketService.removePartOf(n, p);
+
+        Assert.assertTrue(ticketService.loadLazyCollections(n).getPartOf().isEmpty());
+        Assert.assertTrue(ticketService.loadLazyCollections(p).getContains().isEmpty());
+    }
+
+    @Test
+    public void testContainingArticles() {
+        Ticket t = ticketService.getTicket("Auta");
+        List<Article> articles = ticketService.getContainsArticles(t);
+        Assert.assertEquals(2, articles.size());
+
+        ticketService.removeContains(t, articles.get(0));
+        articles = ticketService.getContainsArticles(t);
+        Assert.assertEquals(1, articles.size());
     }
 }

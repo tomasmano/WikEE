@@ -42,10 +42,12 @@ public class RoleService extends AbstractDAO<Role> {
 
     @Override
     public void remove(Role entity) {
+        entity = em.merge(entity);
         for(User u : entity.getMembers()){
             u.setRole(null);
         }
 
         entity.getMembers().clear();
+        super.remove(entity);
     }
 }

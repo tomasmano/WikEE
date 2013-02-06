@@ -42,6 +42,8 @@ public class UserService extends AbstractDAO<User> {
 
     @Override
     public void remove(User user) {
+        user = em.merge(user);
+
         for(WikeeEntity e : user.getCreatedItems()){
             e.setCreator(null);
         }

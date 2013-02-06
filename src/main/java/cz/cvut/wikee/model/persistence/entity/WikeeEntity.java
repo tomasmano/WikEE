@@ -3,7 +3,6 @@ package cz.cvut.wikee.model.persistence.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -29,12 +28,10 @@ public abstract class WikeeEntity implements Serializable {
     @ManyToOne
     protected User creator;
 
-    @ManyToMany(
-            mappedBy = "contains",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "contains")
     private List<WikeeEntity> partOf;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany
     private List<WikeeEntity> contains;
 
     public WikeeEntity(){
@@ -102,7 +99,7 @@ public abstract class WikeeEntity implements Serializable {
     }
 
     public List<WikeeEntity> getPartOf() {
-        return Collections.unmodifiableList(partOf);
+        return new ArrayList<WikeeEntity>(partOf);
     }
 
     protected void setPartOf(List<WikeeEntity> partOf) {
@@ -110,7 +107,7 @@ public abstract class WikeeEntity implements Serializable {
     }
 
     public List<WikeeEntity> getContains() {
-        return Collections.unmodifiableList(contains);
+        return new ArrayList<WikeeEntity>(contains);
     }
 
     protected void setContains(List<WikeeEntity> contains) {
@@ -127,10 +124,10 @@ public abstract class WikeeEntity implements Serializable {
     }
 
     public void removePartOf(WikeeEntity entity){
-        if(!partOf.contains(entity)){
+        if(partOf.contains(entity)){
             partOf.remove(entity);
         }
-        if(!entity.contains.contains(this)){
+        if(entity.contains.contains(this)){
             entity.contains.remove(this);
         }
     }
@@ -145,10 +142,10 @@ public abstract class WikeeEntity implements Serializable {
     }
 
     public void removeContains(WikeeEntity entity){
-        if(!contains.contains(entity)){
+        if(contains.contains(entity)){
             contains.remove(entity);
         }
-        if(!entity.partOf.contains(this)){
+        if(entity.partOf.contains(this)){
             entity.partOf.remove(this);
         }
     }

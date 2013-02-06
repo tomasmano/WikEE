@@ -96,6 +96,8 @@ public abstract class AbstractDAO<T extends WikeeEntity> implements Serializable
     }
 
     public void remove(T entity){
+        entity = getEm().merge(entity);
+
         for(WikeeEntity e : entity.getContains()){
             entity.removeContains(e);
         }
@@ -170,5 +172,24 @@ public abstract class AbstractDAO<T extends WikeeEntity> implements Serializable
             }
         }
         return out;
+    }
+
+    public void removePartOf(T entity, WikeeEntity partOfEntity){
+        entity = merge(entity);
+        partOfEntity = getEm().merge(partOfEntity);
+        entity.removePartOf(partOfEntity);
+    }
+
+    public void removeContains(T entity, WikeeEntity containsEntity){
+        entity = merge(entity);
+        containsEntity = getEm().merge(containsEntity);
+        entity.removeContains(containsEntity);
+    }
+
+    public T loadLazyCollections(T entity){
+        entity = merge(entity);
+        entity.getContains();
+        entity.getPartOf();
+        return entity;
     }
 }

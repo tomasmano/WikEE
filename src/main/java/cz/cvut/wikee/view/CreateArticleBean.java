@@ -1,15 +1,17 @@
 package cz.cvut.wikee.view;
 
+
 import cz.cvut.wikee.model.persistence.entity.Article;
 import cz.cvut.wikee.model.persistence.entity.Ticket;
 import cz.cvut.wikee.model.sevice.ArticleService;
 import cz.cvut.wikee.model.sevice.TicketService;
-import java.util.List;
+import org.apache.log4j.Logger;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
-import org.apache.log4j.Logger;
+import java.util.List;
 
 /**
  *
@@ -38,12 +40,20 @@ public class CreateArticleBean {
     
     private Ticket ticket;
     
-    private List<Ticket> tickets;
-    
     public void saveArticle(){
         logger.debug("Saving article ..");
         Article saved = articleService.saveOrUpdate(new Article(userBean.getUser(), name, content));
-//        saved.addPartOf(ticket);
+        // TODO - nikde se nenastavuje ticket. Ani se nikde nevola nevola getTickets()
+        // Prozatim nastavim vzdy ticket Počítače
+        ticket = ticketService.getTicket("Počítače");
+
+        // Entita neni v persistence kontextu - musi se mergenout.
+        //saved.addPartOf(ticket);
+        // articleService.merge(saved);
+
+        // Udelal jsem v service zvlastni metodu pro pridani ticketu
+        articleService.addTicket(saved, ticket);
+
         logger.debug("Article saved: "+saved);
     }
     
@@ -74,11 +84,8 @@ public class CreateArticleBean {
     }
 
     public List<Ticket> getTickets() {
-        return ticketService.getAll();
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+        List<Ticket> all = ticketService.getAll();
+        return all;
     }
 
     public ArticleService getArticleService() {

@@ -4,6 +4,7 @@ import cz.cvut.wikee.model.persistence.AbstractDAO;
 import cz.cvut.wikee.model.persistence.Storage;
 import cz.cvut.wikee.model.persistence.entity.Article;
 import cz.cvut.wikee.model.persistence.entity.Article_;
+import cz.cvut.wikee.model.persistence.entity.Ticket;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -39,6 +40,13 @@ public class ArticleService extends AbstractDAO<Article> {
 
     public Article getArticle(String name){
        return getWhereEquals(Article_.name, name);
+    }
+
+    public void addTicket(Article article, Ticket ticket){
+        article = em.merge(article);
+        ticket = em.merge(ticket);
+
+        article.addPartOf(ticket);
     }
 
 
