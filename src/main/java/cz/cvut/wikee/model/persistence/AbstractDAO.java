@@ -174,16 +174,32 @@ public abstract class AbstractDAO<T extends WikeeEntity> implements Serializable
         return out;
     }
 
-    public void removePartOf(T entity, WikeeEntity partOfEntity){
+    public T removePartOf(T entity, WikeeEntity partOfEntity){
         entity = merge(entity);
         partOfEntity = getEm().merge(partOfEntity);
         entity.removePartOf(partOfEntity);
+        return entity;
     }
 
-    public void removeContains(T entity, WikeeEntity containsEntity){
+    public T removeContains(T entity, WikeeEntity containsEntity){
         entity = merge(entity);
         containsEntity = getEm().merge(containsEntity);
         entity.removeContains(containsEntity);
+        return entity;
+    }
+
+    public T addPartOf(T entity, WikeeEntity partOfEntity){
+        entity = merge(entity);
+        partOfEntity = getEm().merge(partOfEntity);
+        entity.addPartOf(partOfEntity);
+        return entity;
+    }
+
+    public T addContains(T entity, WikeeEntity containsEntity){
+        entity = merge(entity);
+        containsEntity = getEm().merge(containsEntity);
+        entity.addContains(containsEntity);
+        return entity;
     }
 
     public T loadLazyCollections(T entity){

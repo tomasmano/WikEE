@@ -42,7 +42,7 @@ public class TicketServiceTest {
 
     @Before
     public void init(){
-        testUtils.insertSampleData();
+        testUtils.insertSampleDataFull();
     }
 
     @After

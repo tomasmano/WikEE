@@ -21,10 +21,9 @@
 
             <h4>Select Category: </h4>
             <p>
-                <!--                <p:selectOneMenu value="#!{createArticleBean.ticket}">
-                                    <f:converter converterId="ticketConverter" />
-                                    <f:selectItems var="tick" itemLabel="#!{tick.name}" itemValue="#!{tick.id}" value="#!{createArticleBean.tickets}"/>  
-                                </p:selectOneMenu>-->
+                               <p:selectOneMenu value="#{createArticleBean.ticketId}">
+                                    <f:selectItems var="tick" itemLabel="#{tick.name}" itemValue="#{tick.id}" value="#{createArticleBean.tickets}"/>
+                                </p:selectOneMenu>
             </p>
 
             <h4>Article Content: </h4>  

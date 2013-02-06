@@ -39,13 +39,25 @@ public class CreateArticleBean {
     private String content;
     
     private Ticket ticket;
-    
+
+    private Integer ticketId;
+
+    public Integer getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(Integer ticketId) {
+        this.ticketId = ticketId;
+    }
+
     public void saveArticle(){
         logger.debug("Saving article ..");
         Article saved = articleService.saveOrUpdate(new Article(userBean.getUser(), name, content));
         // TODO - nikde se nenastavuje ticket. Ani se nikde nevola nevola getTickets()
         // Prozatim nastavim vzdy ticket Počítače
-        ticket = ticketService.getTicket("Počítače");
+
+        ticket = ticketService.get(ticketId);
+        //ticket = ticketService.getTicket("Počítače");
 
         // Entita neni v persistence kontextu - musi se mergenout.
         //saved.addPartOf(ticket);

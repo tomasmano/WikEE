@@ -85,13 +85,14 @@ public class Initialization {
 
         logger.debug("Inserting articles...");
         Article article = new Article(u, "Nová Octávie", "Lorem ipsum ...");
-        article.addPartOf(tCars);
-
-        Article article2 = new Article(u, "Strašná autonehoda", "Lorem ipsum ...");
-        article2.addPartOf(tCars);
+        Article article2 = new Article(u, "Strašná autonehoda", "Lorem ipsum ... Muzou za to pocitace.");
 
         articleService.persist(article);
         articleService.persist(article2);
+
+        article.addPartOf(tCars);
+        article2.addPartOf(tCars);
+        article2.addPartOf(tComputers);
 
         logger.debug("Marked as initialized...");
         settingsService.set("DB_INIT", "TRUE");

@@ -53,4 +53,12 @@ public class UserService extends AbstractDAO<User> {
 
         super.remove(user);
     }
+
+    @Override
+    public User loadLazyCollections(User entity) {
+        entity = super.loadLazyCollections(entity);
+        for(WikeeEntity e : entity.getCreatedItems()){
+        }
+        return entity;
+    }
 }

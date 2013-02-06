@@ -41,8 +41,8 @@ public class TestUtils {
     @Inject
     private SettingsService settingsService;
 
-    public void insertSampleData(){
-        LOG.info("Initializing database data...");
+    public void insertSampleDataFull(){
+        LOG.info("START - Initializing database data FULL...");
 
         LOG.debug("Inserting roles...");
         Role admin = new Role("ADMIN");
@@ -76,13 +76,40 @@ public class TestUtils {
 
         LOG.debug("Inserting articles...");
         Article article = new Article(u, "Nová Octávie", "Lorem ipsum ...");
+        articleService.persist(article);
         article.addPartOf(tCars);
 
         Article article2 = new Article(u, "Strašná autonehoda", "Lorem ipsum ...");
+        articleService.persist(article2);
         article2.addPartOf(tCars);
 
-        articleService.persist(article);
-        articleService.persist(article2);
+        LOG.info("END - Initializing database data FULL...");
+    }
+
+    public void insertSampleDataBasics(){
+        LOG.info("START - Initializing database data BASICS...");
+
+        LOG.debug("Inserting roles...");
+        Role admin = new Role("ADMIN");
+        roleService.saveOrUpdate(admin);
+
+        Role redactor = new Role("REDACTOR");
+        roleService.saveOrUpdate(redactor);
+
+        Role regular = new Role("REGULAR");
+        roleService.saveOrUpdate(regular);
+
+        LOG.debug("Inserting users...");
+        User u = new User(null, "Václav", "Čokrt", "admin", "admin", admin);
+        em.persist(u);
+
+        User uu = new User(null, "Evžen", "Dlouhý", "redactor", "redactor", redactor);
+        em.persist(uu);
+
+        User uuu = new User(null, "Karel", "Pohoda", "regular", "regular", regular);
+        em.persist(uuu);
+
+        LOG.info("END - Initializing database data BASICS...");
     }
 
     public void clearDatabase(){

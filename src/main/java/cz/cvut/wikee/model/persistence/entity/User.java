@@ -33,7 +33,7 @@ public class User extends WikeeEntity {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.MERGE)
     private List<WikeeEntity> createdItems;
 
     @ManyToOne

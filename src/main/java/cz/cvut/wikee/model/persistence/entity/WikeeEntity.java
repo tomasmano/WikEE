@@ -25,13 +25,13 @@ public abstract class WikeeEntity implements Serializable {
     private Date created;
     private Date updated;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     protected User creator;
 
-    @ManyToMany(mappedBy = "contains")
+    @ManyToMany(mappedBy = "contains", cascade = CascadeType.MERGE)
     private List<WikeeEntity> partOf;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<WikeeEntity> contains;
 
     public WikeeEntity(){
@@ -58,7 +58,7 @@ public abstract class WikeeEntity implements Serializable {
             oldValue = newValue;
             newValue = oldValue;
         }
-        if(!oldValue.equals(newValue)){
+        if(oldValue.equals(newValue)){
             return;
         }
 
@@ -150,4 +150,20 @@ public abstract class WikeeEntity implements Serializable {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WikeeEntity that = (WikeeEntity) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }
