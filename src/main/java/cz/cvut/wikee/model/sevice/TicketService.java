@@ -5,6 +5,7 @@ import cz.cvut.wikee.model.persistence.Storage;
 import cz.cvut.wikee.model.persistence.entity.Ticket;
 import cz.cvut.wikee.model.persistence.entity.Ticket_;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
 
 @Named
 @Stateless
+/*@SecurityDomain("WikEE")
+@DeclareRoles({"ADMIN","REDACTOR","REGULAR"})  */
 public class TicketService extends AbstractDAO<Ticket> {
 
     @Inject @Storage
@@ -39,4 +42,12 @@ public class TicketService extends AbstractDAO<Ticket> {
     public Ticket getTicket(String name){
         return getWhereEquals(Ticket_.name, name);
     }
+
+    @Override
+    @RolesAllowed("ADMIN")
+    public void persist(Ticket entity) {
+        super.persist(entity);
+    }
+
+
 }

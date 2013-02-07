@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
 
 @Named
 @Stateless
+/*@SecurityDomain("WikEE")
+@DeclareRoles({"ADMIN","REDACTOR","REGULAR"}) */
 public class ArticleService extends AbstractDAO<Article> {
 
     @Inject @Storage
@@ -49,5 +51,14 @@ public class ArticleService extends AbstractDAO<Article> {
         article.addPartOf(ticket);
     }
 
+    /*@Override
+    @RolesAllowed({"ADMIN", "REDACTOR"})    */
+    public void persist(Article entity) {
+        super.persist(entity);
+    }
 
+  /*  @RolesAllowed({"ADMIN"})     */
+    public void remove(Article entity) {
+        super.remove(entity);
+    }
 }

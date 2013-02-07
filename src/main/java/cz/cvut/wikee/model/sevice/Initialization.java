@@ -44,7 +44,6 @@ public class Initialization {
 
     @PostConstruct
     public void init(){
-
         logger.info("Initializing database data...");
 
         // Init db only if it is not initialized zet
@@ -67,10 +66,10 @@ public class Initialization {
         User u = new User(null, "Václav", "Čokrt", "admin", "admin", admin);
         em.persist(u);
 
-        User uu = new User(null, "Evžen", "Dlouhý", "evzen", "evzen", redactor);
+        User uu = new User(null, "Evžen", "Dlouhý", "redactor", "redactor", redactor);
         em.persist(uu);
 
-        User uuu = new User(null, "Karel", "Pohoda", "karel", "karel", regular);
+        User uuu = new User(null, "Karel", "Pohoda", "regular", "regular", regular);
         em.persist(uuu);
 
         logger.debug("Inserting tickets...");
